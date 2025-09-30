@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ajude o João — Campanha</title>
+<style>
+  /* Paleta: preto, vermelho e branco */
+  :root{
+    --dark:#0a0a0a;      /* fundo preto */
+    --red:#e50914;       /* vermelho principal */
+    --muted:#111;        /* cinza escuro */
+    --text:#f5f5f5;      /* texto claro */
+    --rounded:14px;
+    --maxw:980px;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, "Helvetica Neue", Arial, sans-serif;
+    background:var(--dark);
+    color:var(--text);
+    line-height:1.5;
+    padding:16px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:var(--maxw);
+    background:var(--muted);
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    overflow:hidden;
+  }
+
+  header{
+    background:linear-gradient(90deg,var(--dark),#1a1a1a);
+    color:white;
+    padding:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    align-items:center;
+  }
+  .hero-photo{
+    width:100px;
+    height:100px;
+    border-radius:12px;
+    background:var(--red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 100px;
+  }
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+  }
+
+  .hero-title h1{
+    margin:0 0 6px 0;
+    font-size:22px;
+  }
+  .hero-title p{margin:0;opacity:0.9}
+
+  .cta{
+    margin-left:auto;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .btn{
+    background:var(--red);
+    color:white;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+  }
+  .btn.alt{
+    background:transparent;
+    color:white;
+    border:1px solid rgba(255,255,255,0.3);
+  }
+
+  main{padding:20px; display:grid; gap:20px;}
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 340px;
+    gap:20px;
+  }
+  @media (max-width:860px){
+    .grid{grid-template-columns:1fr}
+    .cta{margin-left:0;width:100%;justify-content:flex-start}
+  }
+
+  .card{
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.4);
+  }
+
+  .story h2, .surgery h2{margin-top:0}
+
+  /* PROGRESS */
+  .progress-wrap{display:flex;flex-direction:column;gap:12px}
+  .amounts{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+  .bar{
+    width:100%;
+    background:#333;
+    border-radius:999px;
+    height:16px;
+    overflow:hidden;
+  }
+  .bar > i{
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--red);
+    border-radius:inherit;
+    transition:width 800ms ease;
+  }
+  .small{font-size:13px;color:#bbb}
+
+  /* Donation buttons */
+  .donation-actions{display:flex;flex-direction:column;gap:10px}
+  .donation-row{display:flex;gap:8px;flex-wrap:wrap}
+  .donation-button{
+    flex:1 1 auto;
+    min-width:90px;
+    border-radius:10px;
+    padding:10px;
+    background:#2a2a2a;
+    border:1px solid #444;
+    font-weight:600;
+    color:var(--text);
+    cursor:pointer;
+  }
+  .donation-button:hover{background:#333}
+  .donation-cta{
+    background:var(--red);
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  /* share */
+  .share{display:flex;gap:8px;flex-wrap:wrap}
+  .share a{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:#2a2a2a;text-decoration:none;color:#eee;font-size:14px}
+
+  form{display:grid;gap:10px}
+  input,textarea{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #444;
+    font-size:14px;
+    width:100%;
+    background:#111;
+    color:#eee;
+  }
+  textarea{min-height:80px;resize:vertical}
+
+  footer{padding:16px;text-align:center;color:#999;font-size:13px;background:#111}
+  .updates{display:flex;flex-direction:column;gap:8px}
+  .update{background:#2a2a2a;padding:12px;border-radius:8px;font-size:14px}
+  .copy{display:inline-flex;gap:6px;align-items:center;font-weight:700;cursor:pointer;padding:6px 8px;border-radius:6px;background:#222;color:#fff;font-size:14px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="hero-photo">
+        <!-- Substitua por foto real -->
+        <img src="img/WhatsApp Image 2025-09-29 at 20.41.37.jpeg" alt="Foto do João">
+      </div>
+      <div class="hero-title">
+        <h1>Representatividade Pelo Bem 2026</h1>
+        <p>João nasceu com osteoporose e precisa da sua ajuda.</p>
+      </div>
+      <div class="cta">
+        <button class="btn" id="donateTop">Doe Agora</button>
+        <button class="btn alt" id="shareTop">Compartilhar</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="grid">
+        <section>
+          <article class="card story">
+            <h2>A história do João</h2>
+            <p>Aos 42 anos, João nunca teve um amigo. Raras vezes foi à rua, poucas vezes viu o mar.
+
+                Josival João sofre desde criança com uma severa condição de escoliose que o confina às limitações de seu próprio corpo. Desde 1989, ele está isolamento social.
+                
+                Alimentando a esperança de um dia poder experimentar novamente (e conceder à sua mãe, de quem sempre dependeu) a liberdade de levar aonde bem quiser os próprios pés, João lança mais uma campanha para arrecadar fundos para o seu tratamento.
+                
+                Você pode contribuir para que, ao fim da quarentena a qual estamos todos submetidos, João possa também sair nas ruas e dar fim ao seu isolamento em si!
+                
+                O valor arrecadado nesta campanha será para despesas com o tratamento fisioterapêutico, incluindo custos de um profissional de enfermagem que acompanhe João durante o período de cura.</p>
+            
+          </article>
+          <br></br>
+
+          <article class="card surgery">
+            <h2>A cirurgia</h2>
+            <p>Custos previstos:</p>
+            <ul>
+              <li>Cirurgia: R$ 70.000</li>
+              <li>Materiais: R$ 30.000</li>
+              <li>Internação e exames: R$ 10.000</li>
+              <li>Reabilitação: R$ 10.000</li>
+            </ul>
+
+            <div class="progress-wrap">
+              <div class="amounts">
+                <span id="collectedText">R$ 0,00</span>
+                <span>Meta: <strong id="metaText">R$ 120.000,00</strong></span>
+              </div>
+              <div class="bar"><i id="barInner"></i></div>
+            </div>
+          </article>
+          <br></br>
+
+          <article class="card">
+            <h2>Atualizações</h2>
+            <div class="updates" id="updates">
+              <div class="update">Campanha iniciada — Obrigado por estar aqui!</div>
+            </div>
+          </article>
+        </section>
+
+        <aside>
+          <div class="card">
+            <h2>Como ajudar</h2>
+            <div class="donation-actions">
+              <div class="donation-row">
+                <button class="donation-button" data-amount="20">R$ 20</button>
+                <button class="donation-button" data-amount="50">R$ 50</button>
+                <button class="donation-button" data-amount="100">R$ 100</button>
+              </div>
+              <button class="donation-cta" id="openDonate">Doar via PIX</button>
+              <div style="margin-top:10px;font-size:14px">
+                Chave PIX:
+                <div class="copy" id="pixCopy">josivaljoao@gmail.com</div>
+              </div>
+              <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="">
+              <h1> QR Code (PIX)</h1>
+             
+              <br>
+              <div class="share">
+                <a href="#" id="shareWhats">WhatsApp</a>
+                <a href="#" id="shareFb">Facebook</a>
+                <a href="#" id="shareTw">Twitter</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perguntas Frequentes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ff3333;
+    }
+
+    .faq-container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .faq-item {
+      background: #1a1a1a;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+      border: 1px solid #ff3333;
+    }
+
+    .faq-question {
+      background: #ff3333;
+      color: #fff;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: #cc0000;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 15px;
+      background: #000;
+      color: #eee;
+      transition: all 0.4s ease;
+    }
+
+    .faq-answer p {
+      margin: 15px 0;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+    
+  <h1>Perguntas Frequentes</h1>
+  <div class="faq-container">
+    <div class="faq-item">
+      <div class="faq-question">Como ajudar JOSIVAL JOAO DE OLIVEIRA?</div>
+      <div class="faq-answer">
+        <p>Fazendo uma doação diretamente pelo pix ... .</p>
+        <p>Compartilhando a vaquinha nas suas redes sociais.</p>
+        <p> Divulgando para amigos e familiares que possam se sensibilizar com a causa.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Quando a vaquinha foi criada?</div>
+      <div class="faq-answer">
+        <p>A vaquinha AJUDA URGENTE PARA PODER FAZER O MEU TRATAMENTO MÉDICO foi criada em 23/02/2020.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Como posso ajudar via chave PIX?</div>
+      <div class="faq-answer">
+        <p>Tipo de chave: E-mail.</p>
+            <p> Importante: Ao fazer uma doação via PIX, entre em contato com o criador da vaquinha para informar sobre a doação, assim podemos agradecer e manter o controle das contribuições.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Qual a meta da vaquinha?</div>
+      <div class="faq-answer">
+        <p>Meta: R$ 30.000,00.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const faqs = document.querySelectorAll(".faq-item");
+
+    faqs.forEach(item => {
+      item.querySelector(".faq-question").addEventListener("click", () => {
+        item.classList.toggle("active");
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+    <footer>
+      Feito com ❤️ para ajudar o João • Compartilhe!
+    </footer>
+  </div>
+
+<script>
+  const CONFIG = {
+    target: 30000,
+    collected: 0,
+    pixKey: "josivaljoao@gmail.com",
+    url: location.href
+  };
+
+  function fmt(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+  const collectedText=document.getElementById("collectedText");
+  const metaText=document.getElementById("metaText");
+  const barInner=document.getElementById("barInner");
+  const pixCopy=document.getElementById("pixCopy");
+
+  function refresh(){
+    collectedText.textContent=fmt(CONFIG.collected);
+    metaText.textContent=fmt(CONFIG.target);
+    const pct=Math.min(100,(CONFIG.collected/CONFIG.target)*100);
+    barInner.style.width=pct+"%";
+  }
+  refresh();
+
+  pixCopy.addEventListener("click",()=>{
+    navigator.clipboard.writeText(CONFIG.pixKey);
+    alert("Chave PIX copiada!");
+  });
+
+  document.querySelectorAll(".donation-button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const v=Number(btn.dataset.amount);
+      CONFIG.collected+=v;
+      refresh();
+    });
+  });
+
+  document.getElementById("openDonate").addEventListener("click",()=>{
+    alert("Use a chave PIX: "+CONFIG.pixKey);
+  });
+
+  const shareMsg="Ajude o João: "+CONFIG.url;
+  document.getElementById("shareWhats").href="https://wa.me/?text="+encodeURIComponent(shareMsg);
+  document.getElementById("shareFb").href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(CONFIG.url);
+  document.getElementById("shareTw").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(shareMsg);
+
+  document.getElementById("donateTop").addEventListener("click",()=>document.getElementById("openDonate").click());
+  document.getElementById("shareTop").addEventListener("click",()=>document.getElementById("shareWhats").click());
+</script>
+</body>
+</html>
