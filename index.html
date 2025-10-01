@@ -174,6 +174,29 @@
   .updates{display:flex;flex-direction:column;gap:8px}
   .update{background:#2a2a2a;padding:12px;border-radius:8px;font-size:14px}
   .copy{display:inline-flex;gap:6px;align-items:center;font-weight:700;cursor:pointer;padding:6px 8px;border-radius:6px;background:#222;color:#fff;font-size:14px}
+
+
+ 
+  /* ... resto do seu CSS ... */
+
+  /* Responsividade do QR Code */
+  .qrcode {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 16px auto;
+    border-radius: 12px;
+  }
+
+  .qrcode-title {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+    color: var(--text);
+  }
+
+
+
 </style>
 </head>
 <body>
@@ -224,7 +247,7 @@
             <div class="progress-wrap">
               <div class="amounts">
                 <span id="collectedText">R$ 0,00</span>
-                <span>Meta: <strong id="metaText">R$ 30.000,00</strong></span>
+                <span>Meta: <strong id="metaText">R$ 120.000,00</strong></span>
               </div>
               <div class="bar"><i id="barInner"></i></div>
             </div>
@@ -253,8 +276,14 @@
                 Chave PIX:
                 <div class="copy" id="pixCopy">josivaljoao@gmail.com</div>
               </div>
-              
+
+
+
+              <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX" class="qrcode">
+<h2 class="qrcode-title">QR Code (PIX)</h2>
+
              
+              
               <br>
               <div class="share">
                 <a href="#" id="shareWhats">WhatsApp</a>
@@ -385,6 +414,136 @@
     </footer>
   </div>
 
+
+  <!-- Botão fixo -->
+<button class="fixed-donate" id="fixedDonate">📱 Escaneie e Doe Agora</button>
+
+<!-- Popup QR Code -->
+<div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="popup">
+    <h3 id="popupTitle">Doe pelo PIX</h3>
+    <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX ampliado" id="popupQrcode">
+    <div class="pix-key" id="popupPix">josivaljoao@gmail.com</div>
+    <div class="actions">
+      <button class="btn-close" id="closePopup">Fechar</button>
+      <button class="btn-copy" id="copyPopupPix">Copiar Chave</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Overlay e popup */
+  .popup-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 18px;
+    overflow-y: auto; /* permite scroll do popup se necessário */
+  }
+  .popup{
+    background: #0f0f0f;
+    padding: 18px;
+    border-radius: 12px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.03);
+    max-height: 90vh; /* limita altura do popup */
+    overflow-y: auto; /* scroll interno do popup */
+  }
+  .popup h3{margin-bottom:10px}
+  .popup img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background:white;
+    padding: 8px;
+  }
+  .popup .pix-key{
+    display: block;
+    margin: 12px auto;
+    padding: 10px 12px;
+    background: #111;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 800;
+  }
+  .popup .actions{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .popup .actions button{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .btn-close{background: #333; color:#fff}
+  .btn-copy{background: var(--red); color:#fff}
+
+  .fixed-donate{
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: var(--red);
+    color: #fff;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    z-index: 1200;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .fixed-donate:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+  }
+
+
+
+
+</style>
+
+<script>
+  const popupOverlay = document.getElementById("popupOverlay");
+  const fixedDonate = document.getElementById("fixedDonate");
+  const closePopup = document.getElementById("closePopup");
+  const copyPopupPix = document.getElementById("copyPopupPix");
+  const popupPix = document.getElementById("popupPix");
+
+  // Abrir popup
+  fixedDonate.addEventListener("click",()=>popupOverlay.style.display="flex");
+
+  // Fechar popup
+  closePopup.addEventListener("click",()=>popupOverlay.style.display="none");
+
+  // Copiar chave PIX
+  copyPopupPix.addEventListener("click",()=>{
+    navigator.clipboard.writeText(popupPix.textContent);
+    alert("Chave PIX copiada!");
+  });
+
+
+  
+  fixedDonate.addEventListener("click", () => {
+    popupOverlay.style.display = "flex"; // abre o popup quando clicar no botão fixo
+  });
+
+</script>
+
+
+
+
 <script>
   const CONFIG = {
     target: 30000,
@@ -434,4 +593,3 @@
 </script>
 </body>
 </html>
-
