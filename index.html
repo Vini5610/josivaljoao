@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Ajude o João — Campanha</title>
 <style>
-  /* Paleta: preto, vermelho e branco */
   :root{
-    --dark:#0a0a0a;      /* fundo preto */
-    --red:#e50914;       /* vßermelho principal */
-    --muted:#111;        /* cinza escuro */
-    --text:#f5f5f5;      /* texto claro */
+    --dark:#0a0a0a;
+    --red:#e50914;
+    --muted:#111;
+    --text:#f5f5f5;
     --rounded:14px;
     --maxw:980px;
   }
@@ -62,18 +61,10 @@
     border-radius:12px;
   }
 
-  .hero-title h1{
-    margin:0 0 6px 0;
-    font-size:22px;
-  }
+  .hero-title h1{margin:0 0 6px 0;font-size:22px;}
   .hero-title p{margin:0;opacity:0.9}
 
-  .cta{
-    margin-left:auto;
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
+  .cta{margin-left:auto;display:flex;gap:12px;align-items:center;}
   .btn{
     background:var(--red);
     color:white;
@@ -89,10 +80,10 @@
     border:1px solid rgba(255,255,255,0.3);
   }
 
-  main{padding:20px; display:grid; gap:20px;}
+  main{padding:20px;display:grid;gap:20px;}
   .grid{
     display:grid;
-    grid-template-columns: 1fr 340px;
+    grid-template-columns:1fr 340px;
     gap:20px;
   }
   @media (max-width:860px){
@@ -107,435 +98,401 @@
     box-shadow:0 6px 14px rgba(0,0,0,0.4);
   }
 
-  .story h2, .surgery h2{margin-top:0}
+  .story h2,.surgery h2{margin-top:0}
 
-  /* PROGRESS */
+  /* ---- CARROSSEL ---- */
+  .carrossel-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    margin-top: 20px;
+  }
+  .carrossel {
+    display: flex;
+    transition: transform 0.6s ease;
+  }
+  .carrossel img {
+    width: 33.3333%;
+    flex-shrink: 0;
+    object-fit: cover;
+    height: 240px;
+  }
+  .btn-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(229,9,20,0.7);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    transition: 0.3s;
+  }
+  .btn-slide:hover{background-color:rgba(229,9,20,1);}
+  .btn-prev{left:10px;}
+  .btn-next{right:10px;}
+  .dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:10px;
+  }
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#444;
+    cursor:pointer;
+    transition:background 0.3s;
+  }
+  .dot.active{background:var(--red);}
+  @media (max-width:900px){.carrossel img{width:50%;}}
+  @media (max-width:600px){.carrossel img{width:100%;}}
+
+  /* ---- PROGRESSO, DOAÇÕES, ETC ---- */
   .progress-wrap{display:flex;flex-direction:column;gap:12px}
   .amounts{display:flex;justify-content:space-between;align-items:center;font-size:14px}
-  .bar{
-    width:100%;
-    background:#333;
-    border-radius:999px;
-    height:16px;
-    overflow:hidden;
-  }
-  .bar > i{
-    display:block;
-    height:100%;
-    width:0%;
-    background:var(--red);
-    border-radius:inherit;
-    transition:width 800ms ease;
-  }
-  .small{font-size:13px;color:#bbb}
-
-  /* Donation buttons */
+  .bar{width:100%;background:#333;border-radius:999px;height:16px;overflow:hidden;}
+  .bar>i{display:block;height:100%;width:0%;background:var(--red);border-radius:inherit;transition:width 800ms ease;}
   .donation-actions{display:flex;flex-direction:column;gap:10px}
   .donation-row{display:flex;gap:8px;flex-wrap:wrap}
-  .donation-button{
-    flex:1 1 auto;
-    min-width:90px;
-    border-radius:10px;
-    padding:10px;
-    background:#2a2a2a;
-    border:1px solid #444;
-    font-weight:600;
-    color:var(--text);
-    cursor:pointer;
-  }
+  .donation-button{flex:1 1 auto;min-width:90px;border-radius:10px;padding:10px;background:#2a2a2a;border:1px solid #444;font-weight:600;color:var(--text);cursor:pointer;}
   .donation-button:hover{background:#333}
-  .donation-cta{
-    background:var(--red);
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:10px;
-    font-weight:700;
-    cursor:pointer;
-  }
-
-  /* share */
+  .donation-cta{background:var(--red);color:white;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;}
   .share{display:flex;gap:8px;flex-wrap:wrap}
   .share a{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:#2a2a2a;text-decoration:none;color:#eee;font-size:14px}
-
-  form{display:grid;gap:10px}
-  input,textarea{
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #444;
-    font-size:14px;
-    width:100%;
-    background:#111;
-    color:#eee;
-  }
-  textarea{min-height:80px;resize:vertical}
-
   footer{padding:16px;text-align:center;color:#999;font-size:13px;background:#111}
-  .updates{display:flex;flex-direction:column;gap:8px}
-  .update{background:#2a2a2a;padding:12px;border-radius:8px;font-size:14px}
-  .copy{display:inline-flex;gap:6px;align-items:center;font-weight:700;cursor:pointer;padding:6px 8px;border-radius:6px;background:#222;color:#fff;font-size:14px}
 
-
- 
-  /* ... resto do seu CSS ... */
-
-  /* Responsividade do QR Code */
-  .qrcode {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 16px auto;
-    border-radius: 12px;
-  }
-
-  .qrcode-title {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 10px;
-    color: var(--text);
-  }
-
-
-
+  .qrcode{display:block;max-width:100%;height:auto;margin:16px auto;border-radius:12px;}
+  .qrcode-title{text-align:center;font-size:18px;margin-top:10px;color:var(--text);}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="hero-photo">
-        <!-- Substitua por foto real -->
-        <img src="img/WhatsApp Image 2025-09-29 at 20.41.37.jpeg" alt="Foto do João">
-      </div>
-      <div class="hero-title">
-        <h1>Representatividade Pelo Bem 2026</h1>
-        <p>João nasceu com um grave quadro de Escoliose e precisa de ajuda</p>
-      </div>
-      <div class="cta">
-        <button class="btn" id="donateTop">Doe Agora</button>
-        <button class="btn alt" id="shareTop">Compartilhar</button>
-      </div>
-    </header>
+<div class="wrap">
+  <header>
+    <div class="hero-photo">
+      <img src="img/WhatsApp Image 2025-09-29 at 20.41.37.jpeg" alt="Foto do João">
+    </div>
+    <div class="hero-title">
+      <h1>Representatividade Pelo Bem 2026</h1>
+      <p>João nasceu com um grave quadro de Escoliose e precisa de ajuda</p>
+    </div>
+    <div class="cta">
+      <button class="btn" id="donateTop">Doe Agora</button>
+      <button class="btn alt" id="shareTop">Compartilhar</button>
+    </div>
+  </header>
 
-    <main>
-      <div class="grid">
-        <section>
-          <article class="card story">
-            <h2>A história do João</h2>
-            <p>Aos 47 anos, João nunca teve um amigo. Raras vezes foi à rua, poucas vezes viu o mar. Josival João sofre desde criança com uma severa condição de escoliose que o confina às limitações de seu próprio corpo. Desde 1989, ele está isolamento social. Alimentando a esperança de um dia poder experimentar novamente (e conceder à sua mãe, de quem sempre dependeu) a liberdade de levar aonde bem quiser os próprios pés, João recebe o apoio doo Grupo Efraim e lança mais uma campanha para arrecadar fundos para o seu tratamento. Você pode contribuir para que, ao fim da campanha juntamente com todos que apoiarem,  João possa também sair nas ruas e dar fim ao seu isolamento em si! O valor arrecadado nesta campanha será para despesas com o tratamento fisioterapêutico, incluindo custos de um profissional de enfermagem que acompanhe João durante o período de cura, além da adaptação de sua casa para sua melhor locomoção.</p>
-            
-          </article>
-          <br></br>
+  <main>
+    <div class="grid">
+      <section>
+        <article class="card story">
+          <h2>A história do João</h2>
+          <p>Aos 47 anos, João nunca teve um amigo. Raras vezes foi à rua, poucas vezes viu o mar. Josival João sofre desde criança com uma severa condição de escoliose que o confina às limitações de seu próprio corpo. Desde 1989, ele está isolamento social. Alimentando a esperança de um dia poder experimentar novamente (e conceder à sua mãe, de quem sempre dependeu) a liberdade de levar aonde bem quiser os próprios pés, João recebe o apoio doo Grupo Efraim e lança mais uma campanha para arrecadar fundos para o seu tratamento. Você pode contribuir para que, ao fim da campanha juntamente com todos que apoiarem,  João possa também sair nas ruas e dar fim ao seu isolamento em si! O valor arrecadado nesta campanha será para despesas com o tratamento fisioterapêutico, incluindo custos de um profissional de enfermagem que acompanhe João durante o período de cura, além da adaptação de sua casa para sua melhor locomoção.</p>
 
-          <article class="card surgery">
-            <h2>Custos previstos:</h2>
-            <p></p>
-            <ul>
-              <li>Início do Tratamento Fisioterapêutico: R$ 16.000</li>
-              <li>Adaptação de Sua Casa: R$ 10.400</li>
-              <li>Conserto e Manutenção da Cadeira Elétrica: <br> </br> R$ 3.600</li>
-              
-            </ul>
-
-            <div class="progress-wrap">
-              <div class="amounts">
-                <span id="collectedText">R$ 95,00</span>
-                <span>Meta: <strong id="metaText">R$ 30.000,00</strong></span>
-              </div>
-              <div class="bar"><i id="barInner"></i></div>
+          <!-- 🚀 Carrossel de Imagens -->
+          <div class="carrossel-container">
+            <div class="carrossel" id="carrossel">
+              <img src="img/joao02.jpeg" alt="">
+              <img src="img/joao01 (2).jpeg" alt="">
+              <img src="img/joao03.jpeg" alt="">
+              <img src="img/joao13.jpeg" alt="">
+              <img src="img/joao05.jpeg" alt="">
+              <img src="img/joao06.jpeg" alt="">
+              <img src="img/joao07.jpeg" alt="">
+              <img src="img/joao08.jpeg" alt="">
+              <img src="img/joao09.jpeg" alt="">
+              <img src="img/joao10.jpeg" alt="">
+              <img src="img/joao11.jpeg" alt="">
+              <img src="img/joao12.jpeg" alt="">
             </div>
-          </article>
-          <br></br>
+            <button class="btn-slide btn-prev">&#10094;</button>
+            <button class="btn-slide btn-next">&#10095;</button>
+          </div>
+          <div class="dots" id="dots"></div>
+        </article>
 
-          <article class="card">
-            <h2>Atualizações</h2>
-            <div class="updates" id="updates">
-              <div class="update">Campanha iniciada — Obrigado por estar aqui!</div>
+        <br></br>
+
+        <article class="card">
+          <h2>Atualizações</h2>
+          <div class="updates" id="updates">
+            <div class="update">Campanha iniciada — Obrigado por estar aqui!</div>
+          </div>
+        </article>
+
+        <br></br>
+
+        <article class="card surgery">
+          <h2>Custos previstos:</h2>
+          <ul>
+            <li>Tratamento Fisioterapêutico: R$ 16.000</li>
+            <li>Adaptação da Casa: R$ 10.400</li>
+            <li>Cadeira Elétrica: R$ 3.600</li>
+          </ul>
+          <div class="progress-wrap">
+            <div class="amounts">
+              <span id="collectedText">R$ 95,00</span>
+              <span>Meta: <strong id="metaText">R$ 30.000,00</strong></span>
             </div>
-          </article>
-        </section>
+            <div class="bar"><i id="barInner"></i></div>
+          </div>
+        </article>
+      </section>
 
-        <aside>
-          <div class="card">
-            <h2>Como ajudar</h2>
-            <div class="donation-actions">
-              <div class="donation-row">
-                <button class="donation-button" data-amount="20">R$ 20</button>
-                <button class="donation-button" data-amount="50">R$ 50</button>
-                <button class="donation-button" data-amount="100">R$ 100</button>
-              </div>
-              <button class="donation-cta" id="openDonate">Doar via PIX</button>
-              <div style="margin-top:10px;font-size:14px">
-                Chave PIX:
-                <div class="copy" id="pixCopy">josivaljoao@gmail.com</div>
-              </div>
-
-
-
-              <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX" class="qrcode">
-<h2 class="qrcode-title">QR Code (PIX)</h2>
-
-             
-              
-              <br>
-              <div class="share">
-                <a href="#" id="shareWhats">WhatsApp</a>
-                <a href="#" id="shareFb">Facebook</a>
-                <a href="#" id="shareTw">Twitter</a>
-              </div>
+      <aside>
+        <div class="card">
+          <h2>Como ajudar</h2>
+          <div class="donation-actions">
+            <div class="donation-row">
+              <button class="donation-button" data-amount="20">R$ 20</button>
+              <button class="donation-button" data-amount="50">R$ 50</button>
+              <button class="donation-button" data-amount="100">R$ 100</button>
+            </div>
+            <button class="donation-cta" id="openDonate">Doar via PIX</button>
+            <div style="margin-top:10px;font-size:14px">
+              Chave PIX:
+              <div class="copy" id="pixCopy">josivaljoao@gmail.com</div>
+            </div>
+            <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX" class="qrcode">
+            <h2 class="qrcode-title">QR Code (PIX)</h2>
+            <div class="share">
+              <a href="#" id="shareWhats">WhatsApp</a>
+              <a href="#" id="shareFb">Facebook</a>
+              <a href="#" id="shareTw">Twitter</a>
             </div>
           </div>
-        </aside>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas Frequentes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        margin: 0;
+        padding: 20px;
+        color: #fff;
+      }
+  
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff3333;
+      }
+  
+      .faq-container {
+        max-width: 700px;
+        margin: auto;
+      }
+  
+      .faq-item {
+        background: #1a1a1a;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+        border: 1px solid #ff3333;
+      }
+  
+      .faq-question {
+        background: #ff3333;
+        color: #fff;
+        padding: 15px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+  
+      .faq-question:hover {
+        background: #cc0000;
+      }
+  
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 15px;
+        background: #000;
+        color: #eee;
+        transition: all 0.4s ease;
+      }
+  
+      .faq-answer p {
+        margin: 15px 0;
+      }
+  
+      .faq-item.active .faq-answer {
+        max-height: 300px;
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+      
+    <h1>Perguntas Frequentes</h1>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">Como ajudar JOSIVAL JOAO DE OLIVEIRA?</div>
+        <div class="faq-answer">
+          <p>Fazendo uma doação diretamente pelo pix ... .</p>
+          <p>Compartilhando a vaquinha nas suas redes sociais.</p>
+          <p> Divulgando para amigos e familiares que possam se sensibilizar com a causa.</p>
+        </div>
       </div>
-    </main>
-
-    <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perguntas Frequentes</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      margin: 0;
-      padding: 20px;
-      color: #fff;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #ff3333;
-    }
-
-    .faq-container {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .faq-item {
-      background: #1a1a1a;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
-      border: 1px solid #ff3333;
-    }
-
-    .faq-question {
-      background: #ff3333;
-      color: #fff;
-      padding: 15px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .faq-question:hover {
-      background: #cc0000;
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 15px;
-      background: #000;
-      color: #eee;
-      transition: all 0.4s ease;
-    }
-
-    .faq-answer p {
-      margin: 15px 0;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 300px;
-      padding: 15px;
-    }
-  </style>
-</head>
-<body>
-    
-  <h1>Perguntas Frequentes</h1>
-  <div class="faq-container">
-    <div class="faq-item">
-      <div class="faq-question">Como ajudar JOSIVAL JOAO DE OLIVEIRA?</div>
-      <div class="faq-answer">
-        <p>Fazendo uma doação diretamente pelo pix: josivaljoao@gmail.com .</p>
-        <p>Compartilhando a vaquinha nas suas redes sociais.</p>
-        <p> Divulgando para amigos e familiares que possam se sensibilizar com a causa.</p>
+      <div class="faq-item">
+        <div class="faq-question">Quando a vaquinha foi criada?</div>
+        <div class="faq-answer">
+          <p>A vaquinha AJUDA URGENTE PARA PODER FAZER O MEU TRATAMENTO MÉDICO foi criada em 23/02/2020.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Como posso ajudar via chave PIX?</div>
+        <div class="faq-answer">
+          <p>Tipo de chave: E-mail.</p>
+              <p> Importante: Ao fazer uma doação via PIX, entre em contato com o criador da vaquinha para informar sobre a doação, assim podemos agradecer e manter o controle das contribuições.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Qual a meta da vaquinha?</div>
+        <div class="faq-answer">
+          <p>Meta: R$ 30.000,00.</p>
+        </div>
       </div>
     </div>
-    <div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">Como posso ajudar via chave PIX?</div>
-      <div class="faq-answer">
-        <p>Tipo de chave: E-mail.</p>
-            <p> Importante: Ao fazer uma doação via PIX, entre em contato com o criador da vaquinha para informar sobre a doação, assim podemos agradecer e manter o controle das contribuições.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">Qual a meta da Campanha?</div>
-      <div class="faq-answer">
-        <p>Meta: R$ 30.000,00.</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const faqs = document.querySelectorAll(".faq-item");
-
-    faqs.forEach(item => {
-      item.querySelector(".faq-question").addEventListener("click", () => {
-        item.classList.toggle("active");
+  
+    <script>
+      const faqs = document.querySelectorAll(".faq-item");
+  
+      faqs.forEach(item => {
+        item.querySelector(".faq-question").addEventListener("click", () => {
+          item.classList.toggle("active");
+        });
       });
-    });
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>
 
-
-    <footer>
-      Feito com ❤️ para ajudar o João • Compartilhe!
-    </footer>
-  </div>
+  <footer>Feito com ❤️ para ajudar o João • Compartilhe!</footer>
+</div>
 
 
   <!-- Botão fixo -->
-<button class="fixed-donate" id="fixedDonate">📱 Escaneie e Doe Agora</button>
+  <button class="fixed-donate" id="fixedDonate">📱 Escaneie e Doe Agora</button>
 
-<!-- Popup QR Code -->
-<div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="popup">
-    <h3 id="popupTitle">Doe pelo PIX</h3>
-    <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX ampliado" id="popupQrcode">
-    <div class="pix-key" id="popupPix">josivaljoao@gmail.com</div>
-    <div class="actions">
-      <button class="btn-close" id="closePopup">Fechar</button>
-      <button class="btn-copy" id="copyPopupPix">Copiar Chave</button>
+  <!-- Popup QR Code -->
+  <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+      <h3 id="popupTitle">Doe pelo PIX</h3>
+      <img src="img/WhatsApp Image 2025-09-30 at 13.25.02.jpeg" alt="QR Code PIX ampliado" id="popupQrcode">
+      <div class="pix-key" id="popupPix">josivaljoao@gmail.com</div>
+      <div class="actions">
+        <button class="btn-close" id="closePopup">Fechar</button>
+        <button class="btn-copy" id="copyPopupPix">Copiar Chave</button>
+      </div>
     </div>
   </div>
-</div>
-
-<style>
-  /* Overlay e popup */
-  .popup-overlay{
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-    padding: 18px;
-    overflow-y: auto; /* permite scroll do popup se necessário */
-  }
-  .popup{
-    background: #0f0f0f;
-    padding: 18px;
-    border-radius: 12px;
-    max-width: 420px;
-    width: 100%;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.03);
-    max-height: 90vh; /* limita altura do popup */
-    overflow-y: auto; /* scroll interno do popup */
-  }
-  .popup h3{margin-bottom:10px}
-  .popup img{
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    background:white;
-    padding: 8px;
-  }
-  .popup .pix-key{
-    display: block;
-    margin: 12px auto;
-    padding: 10px 12px;
-    background: #111;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 800;
-  }
-  .popup .actions{
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  .popup .actions button{
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  .btn-close{background: #333; color:#fff}
-  .btn-copy{background: var(--red); color:#fff}
-
-  .fixed-donate{
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    background: var(--red);
-    color: #fff;
-    padding: 13px 18px;
-    border-radius: 999px;
-    border: none;
-    font-weight: 800;
-    cursor: pointer;
-    z-index: 1200;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .fixed-donate:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.6);
-  }
-
-
-
-
-</style>
-
-<script>
-  const popupOverlay = document.getElementById("popupOverlay");
-  const fixedDonate = document.getElementById("fixedDonate");
-  const closePopup = document.getElementById("closePopup");
-  const copyPopupPix = document.getElementById("copyPopupPix");
-  const popupPix = document.getElementById("popupPix");
-
-  // Abrir popup
-  fixedDonate.addEventListener("click",()=>popupOverlay.style.display="flex");
-
-  // Fechar popup
-  closePopup.addEventListener("click",()=>popupOverlay.style.display="none");
-
-  // Copiar chave PIX
-  copyPopupPix.addEventListener("click",()=>{
-    navigator.clipboard.writeText(popupPix.textContent);
-    alert("Chave PIX copiada!");
-  });
-
-
   
-  fixedDonate.addEventListener("click", () => {
-    popupOverlay.style.display = "flex"; // abre o popup quando clicar no botão fixo
-  });
+  <style>
+    /* Overlay e popup */
+    .popup-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 18px;
+      overflow-y: auto; /* permite scroll do popup se necessário */
+    }
+    .popup{
+      background: #0f0f0f;
+      padding: 18px;
+      border-radius: 12px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.03);
+      max-height: 90vh; /* limita altura do popup */
+      overflow-y: auto; /* scroll interno do popup */
+    }
+    .popup h3{margin-bottom:10px}
+    .popup img{
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      background:white;
+      padding: 8px;
+    }
+    .popup .pix-key{
+      display: block;
+      margin: 12px auto;
+      padding: 10px 12px;
+      background: #111;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .popup .actions{
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .popup .actions button{
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .btn-close{background: #333; color:#fff}
+    .btn-copy{background: var(--red); color:#fff}
+  
+    .fixed-donate{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: var(--red);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      z-index: 1200;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+  
+    .fixed-donate:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    }
+  
+  
+  
+  
+  </style>
+  
+  <script>
 
-</script>
 
 
-
-
-<script>
-  const CONFIG = {
+const CONFIG = {
     target: 30000,
-    collected: 95,00,
+    collected: 95.00,
     pixKey: "josivaljoao@gmail.com",
     url: location.href
   };
@@ -571,24 +528,76 @@
     alert("Use a chave PIX: "+CONFIG.pixKey);
   });
 
-  const shareMsg="Ajude o João: "+CONFIG.url;
-  document.getElementById("shareWhats").href="https://wa.me/?text="+encodeURIComponent(shareMsg);
-  document.getElementById("shareFb").href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(CONFIG.url);
-  document.getElementById("shareTw").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(shareMsg);
 
-  document.getElementById("donateTop").addEventListener("click",()=>document.getElementById("openDonate").click());
-  document.getElementById("shareTop").addEventListener("click",()=>document.getElementById("shareWhats").click());
+
+
+    const popupOverlay = document.getElementById("popupOverlay");
+    const fixedDonate = document.getElementById("fixedDonate");
+    const closePopup = document.getElementById("closePopup");
+    const copyPopupPix = document.getElementById("copyPopupPix");
+    const popupPix = document.getElementById("popupPix");
+  
+    // Abrir popup
+    fixedDonate.addEventListener("click",()=>popupOverlay.style.display="flex");
+  
+    // Fechar popup
+    closePopup.addEventListener("click",()=>popupOverlay.style.display="none");
+  
+    // Copiar chave PIX
+    copyPopupPix.addEventListener("click",()=>{
+      navigator.clipboard.writeText(popupPix.textContent);
+      alert("Chave PIX copiada!");
+    });
+  
+  
+    
+    fixedDonate.addEventListener("click", () => {
+      popupOverlay.style.display = "flex"; // abre o popup quando clicar no botão fixo
+    });
+  
+  </script>
+  
+  
+
+<script>
+  // ---- Carrossel ----
+  const carrossel = document.getElementById('carrossel');
+  const imgs = carrossel.querySelectorAll('img');
+  const prev = document.querySelector('.btn-prev');
+  const next = document.querySelector('.btn-next');
+  const dots = document.getElementById('dots');
+  let idx = 0, porVez = 3;
+
+  function atualizarDots(){
+    dots.innerHTML='';
+    const total = Math.ceil(imgs.length / porVez);
+    for(let i=0;i<total;i++){
+      const d=document.createElement('div');
+      d.className='dot'+(i===idx?' active':'');
+      d.addEventListener('click',()=>{idx=i;atualizar();});
+      dots.appendChild(d);
+    }
+  }
+
+  function ajustarImgs(){
+    if(innerWidth<=600) porVez=1;
+    else if(innerWidth<=900) porVez=2;
+    else porVez=3;
+    atualizarDots();
+    atualizar();
+  }
+
+  function atualizar(){
+    const offset=idx*(100/porVez);
+    carrossel.style.transform=`translateX(-${offset}%)`;
+    dots.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  }
+
+  next.onclick=()=>{idx=(idx+1)%Math.ceil(imgs.length/porVez);atualizar();};
+  prev.onclick=()=>{idx=(idx-1+Math.ceil(imgs.length/porVez))%Math.ceil(imgs.length/porVez);atualizar();};
+  window.addEventListener('resize',ajustarImgs);
+  ajustarImgs();
+  setInterval(()=>next.click(),4000);
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
